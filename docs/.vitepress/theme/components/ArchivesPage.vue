@@ -36,6 +36,7 @@ const groups = computed(() => {
 
 .archive-year h2 {
   margin: 0;
+  padding: 0;
   border: 0;
   color: var(--vp-c-brand-1);
   font-size: 1.35rem;

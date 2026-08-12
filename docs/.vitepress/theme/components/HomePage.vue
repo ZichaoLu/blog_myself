@@ -651,6 +651,18 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   --section-accent: #7d5863;
 }
 
+:global(.dark) .section-finance {
+  --section-accent: #c3a07b;
+}
+
+:global(.dark) .section-life {
+  --section-accent: #91ad8d;
+}
+
+:global(.dark) .section-career {
+  --section-accent: #bc909c;
+}
+
 .section-item:hover {
   background: var(--vp-c-bg-soft);
   box-shadow: inset 0 -3px 0 var(--section-accent);

@@ -44,12 +44,18 @@ const selectTag = (tag: string) => {
   </p>
 
   <div class="post-list">
-    <article v-for="post in filteredPosts" :key="post.url" class="post-row">
-      <time class="post-date" :datetime="post.date">{{ post.date }}</time>
+    <article v-for="(post, index) in filteredPosts" :key="post.url" class="post-row">
+      <div class="post-index" aria-hidden="true">{{ String(index + 1).padStart(2, '0') }}</div>
       <div class="post-copy">
+        <div class="post-row-meta">
+          <time class="post-date" :datetime="post.date">{{ post.date }}</time>
+          <span>约 {{ post.readingMinutes }} 分钟阅读</span>
+          <span>{{ post.wordCount.toLocaleString('zh-CN') }} 字</span>
+        </div>
         <h2><a :href="withBase(post.url)">{{ post.title }}</a></h2>
         <p>{{ post.description }}</p>
       </div>
+      <a class="post-arrow" :href="withBase(post.url)" :aria-label="`阅读《${post.title}》`">→</a>
     </article>
   </div>
 </template>

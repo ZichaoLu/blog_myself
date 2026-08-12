@@ -13,6 +13,11 @@ const post = computed(() => {
 
 const category = computed(() => post.value ? getCategory(post.value.category) : undefined)
 const visible = computed(() => Boolean(post.value && frontmatter.value.date))
+const noteNumber = computed(() => {
+  if (!post.value) return ''
+  const index = posts.findIndex((item) => item.url === post.value?.url)
+  return `Note ${String(posts.length - index).padStart(3, '0')}`
+})
 
 const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   year: 'numeric',
@@ -24,9 +29,12 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 <template>
   <header v-if="visible && post" class="article-header">
     <p class="article-kicker">
-      <a v-if="category" :href="withBase(category.href)">{{ category.name }}</a>
-      <span v-if="category" aria-hidden="true">·</span>
-      <time :datetime="post.date">{{ formatDate(post.date) }}</time>
+      <span class="article-context">
+        <a v-if="category" :href="withBase(category.href)">{{ category.name }}</a>
+        <span v-if="category" aria-hidden="true">·</span>
+        <time :datetime="post.date">{{ formatDate(post.date) }}</time>
+      </span>
+      <span class="article-number" aria-hidden="true">{{ noteNumber }}</span>
     </p>
     <h1>{{ post.title }}</h1>
     <p class="article-description">{{ post.description }}</p>
