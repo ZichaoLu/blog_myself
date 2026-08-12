@@ -34,3 +34,15 @@ pnpm docs:preview
 - `docs/career/`
 
 完整搭建与维护说明见 [`BLOG_SETUP_GUIDE.md`](BLOG_SETUP_GUIDE.md)。
+
+### 通过 Pages CMS 写作
+
+项目根目录的 `.pages.yml` 已配置四个文章栏目。使用方法：
+
+1. 打开 [Pages CMS](https://app.pagescms.org/) 并使用 GitHub 登录。
+2. 授权读取和写入 `ZichaoLu/blog_myself` 仓库。
+3. 选择科研、投资理财、生活或就业栏目。
+4. 通过表单填写标题、摘要、日期、标签和正文。
+5. 保存后 Pages CMS 会提交到 `main`，GitHub Actions 自动部署网站。
+
+栏目名称、路径和简介统一维护在 `docs/.vitepress/site.ts`。导航、首页和关于页会自动读取该配置；文章侧边栏则根据各栏目中的 Markdown 文件自动生成。

@@ -1,0 +1,116 @@
+media:
+  input: docs/public/images
+  output: /images
+
+content:
+  - name: research
+    label: 科研文章
+    type: collection
+    path: docs/research
+    format: yaml-frontmatter
+    filename:
+      template: "{primary}.md"
+      field: create
+    exclude:
+      - index.md
+    view:
+      fields: [title, date, draft]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: title, label: 标题, type: string, required: true }
+      - { name: description, label: 摘要, type: text, required: true }
+      - { name: date, label: 发布日期, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - { name: updated, label: 更新日期, type: date, options: { format: yyyy-MM-dd } }
+      - { name: category, label: 栏目, type: string, default: research, hidden: true, required: true }
+      - { name: tags, label: 标签, type: string, list: true }
+      - { name: draft, label: 草稿, type: boolean, default: false }
+      - { name: comments, label: 开启评论, type: boolean, default: true }
+      - { name: body, label: 正文, type: rich-text, required: true }
+
+  - name: finance
+    label: 投资理财文章
+    type: collection
+    path: docs/finance
+    format: yaml-frontmatter
+    filename:
+      template: "{primary}.md"
+      field: create
+    exclude:
+      - index.md
+    view:
+      fields: [title, date, draft]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: title, label: 标题, type: string, required: true }
+      - { name: description, label: 摘要, type: text, required: true }
+      - { name: date, label: 发布日期, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - { name: updated, label: 更新日期, type: date, options: { format: yyyy-MM-dd } }
+      - { name: category, label: 栏目, type: string, default: finance, hidden: true, required: true }
+      - { name: tags, label: 标签, type: string, list: true }
+      - { name: draft, label: 草稿, type: boolean, default: false }
+      - { name: comments, label: 开启评论, type: boolean, default: true }
+      - { name: body, label: 正文, type: rich-text, required: true }
+
+  - name: life
+    label: 生活文章
+    type: collection
+    path: docs/life
+    format: yaml-frontmatter
+    filename:
+      template: "{primary}.md"
+      field: create
+    exclude:
+      - index.md
+    view:
+      fields: [title, date, draft]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: title, label: 标题, type: string, required: true }
+      - { name: description, label: 摘要, type: text, required: true }
+      - { name: date, label: 发布日期, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - { name: updated, label: 更新日期, type: date, options: { format: yyyy-MM-dd } }
+      - { name: category, label: 栏目, type: string, default: life, hidden: true, required: true }
+      - { name: tags, label: 标签, type: string, list: true }
+      - { name: draft, label: 草稿, type: boolean, default: false }
+      - { name: comments, label: 开启评论, type: boolean, default: true }
+      - { name: body, label: 正文, type: rich-text, required: true }
+
+  - name: career
+    label: 就业文章
+    type: collection
+    path: docs/career
+    format: yaml-frontmatter
+    filename:
+      template: "{primary}.md"
+      field: create
+    exclude:
+      - index.md
+    view:
+      fields: [title, date, draft]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: title, label: 标题, type: string, required: true }
+      - { name: description, label: 摘要, type: text, required: true }
+      - { name: date, label: 发布日期, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - { name: updated, label: 更新日期, type: date, options: { format: yyyy-MM-dd } }
+      - { name: category, label: 栏目, type: string, default: career, hidden: true, required: true }
+      - { name: tags, label: 标签, type: string, list: true }
+      - { name: draft, label: 草稿, type: boolean, default: false }
+      - { name: comments, label: 开启评论, type: boolean, default: true }
+      - { name: body, label: 正文, type: rich-text, required: true }

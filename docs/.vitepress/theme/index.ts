@@ -6,12 +6,16 @@ import PostList from './components/PostList.vue'
 import TagsPage from './components/TagsPage.vue'
 import ArchivesPage from './components/ArchivesPage.vue'
 import GiscusComment from './components/GiscusComment.vue'
+import ArticleHeader from './components/ArticleHeader.vue'
+import CategoryPage from './components/CategoryPage.vue'
+import CategoryOverview from './components/CategoryOverview.vue'
 import './custom.css'
 
 export default {
   extends: DefaultTheme,
   Layout() {
     return h(DefaultTheme.Layout, null, {
+      'doc-before': () => h(ArticleHeader),
       'doc-after': () => h(GiscusComment)
     })
   },
@@ -20,5 +24,7 @@ export default {
     app.component('PostList', PostList)
     app.component('TagsPage', TagsPage)
     app.component('ArchivesPage', ArchivesPage)
+    app.component('CategoryPage', CategoryPage)
+    app.component('CategoryOverview', CategoryOverview)
   }
 } satisfies Theme

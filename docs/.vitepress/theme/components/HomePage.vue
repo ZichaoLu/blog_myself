@@ -1,37 +1,7 @@
 <script setup lang="ts">
 import { withBase } from 'vitepress'
 import { data as posts } from '../../../posts.data'
-
-const sections = [
-  {
-    key: 'research',
-    index: '01',
-    title: '科研',
-    summary: '实验设计、研究方法与可复现记录。',
-    href: '/research/'
-  },
-  {
-    key: 'finance',
-    index: '02',
-    title: '投资理财',
-    summary: '投资框架、风险认识与长期财务实践。',
-    href: '/finance/'
-  },
-  {
-    key: 'life',
-    index: '03',
-    title: '生活',
-    summary: '阅读、习惯与日常观察。',
-    href: '/life/'
-  },
-  {
-    key: 'career',
-    index: '04',
-    title: '就业',
-    summary: '求职准备、面试复盘与职业成长。',
-    href: '/career/'
-  }
-]
+import { categories, site } from '../../site'
 
 const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   year: 'numeric',
@@ -51,14 +21,14 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
           width="156"
           height="156"
         >
-        <p class="profile-caption">Lu Zichao</p>
+        <p class="profile-caption">{{ site.author }}</p>
       </div>
       <div class="home-copy">
         <p class="eyebrow">Personal Notes · Since 2026</p>
-        <h1 id="home-title">Lucas的博客</h1>
-        <p class="home-tagline">一个简单的个人博客</p>
+        <h1 id="home-title">{{ site.title }}</h1>
+        <p class="home-tagline">{{ site.tagline }}</p>
         <p class="home-description">
-          记录科研中的问题与方法，也记录投资、生活和就业中的长期思考。写下来，是为了让零散经验能够被再次找到。
+          记录学习与实践中的问题、方法和长期思考。写下来，是为了让零散经验能够被再次找到。
         </p>
         <nav class="home-actions" aria-label="首页快捷入口">
           <a class="primary-link" :href="withBase('/research/')">开始阅读</a>
@@ -73,11 +43,11 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
         <h2 id="sections-title">四个主题，持续记录</h2>
       </div>
       <div class="section-grid">
-        <a v-for="section in sections" :key="section.key" class="section-item" :href="withBase(section.href)">
-          <span class="section-index">{{ section.index }}</span>
+        <a v-for="(section, index) in categories" :key="section.key" class="section-item" :href="withBase(section.href)">
+          <span class="section-index">{{ String(index + 1).padStart(2, '0') }}</span>
           <span class="section-body">
-            <strong>{{ section.title }}</strong>
-            <span>{{ section.summary }}</span>
+            <strong>{{ section.name }}</strong>
+            <span>{{ section.description }}</span>
           </span>
           <span class="section-arrow" aria-hidden="true">→</span>
         </a>

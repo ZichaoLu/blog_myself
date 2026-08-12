@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { withBase } from 'vitepress'
-import { data as posts, type Post } from '../../../posts.data'
+import { data as posts } from '../../../posts.data'
+import type { CategoryKey } from '../../site'
 
 const props = defineProps<{
-  category?: Post['category']
+  category?: CategoryKey
   limit?: number
 }>()
 
@@ -30,6 +31,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
       <div class="post-copy">
         <h2><a :href="withBase(post.url)">{{ post.title }}</a></h2>
         <p>{{ post.description }}</p>
+        <p class="post-reading">约 {{ post.readingMinutes }} 分钟阅读 · {{ post.wordCount }} 字</p>
         <ul class="tag-list" aria-label="文章标签">
           <li v-for="tag in post.tags" :key="tag">
             <a class="tag-link" :href="withBase(`/tags/?tag=${encodeURIComponent(tag)}`)"># {{ tag }}</a>

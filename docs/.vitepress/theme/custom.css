@@ -148,6 +148,61 @@ body {
   line-height: 1.7;
 }
 
+.post-copy .post-reading {
+  margin-top: -3px;
+  color: var(--vp-c-text-3);
+  font-size: 0.78rem;
+}
+
+.article-header {
+  margin: 0 0 36px;
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.article-header .article-kicker {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0 0 13px;
+  color: var(--vp-c-text-3);
+  font-size: 0.82rem;
+}
+
+.article-header .article-kicker a {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.article-header h1 {
+  margin: 0;
+  font-family: Georgia, "Noto Serif SC", "Songti SC", serif;
+  font-size: 2.25rem;
+  line-height: 1.3;
+}
+
+.article-header .article-description {
+  margin: 14px 0 0;
+  color: var(--vp-c-text-2);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.article-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: center;
+  margin-top: 18px;
+  color: var(--vp-c-text-3);
+  font-size: 0.78rem;
+}
+
+.article-details .tag-list {
+  gap: 6px;
+}
+
 .tag-list {
   display: flex;
   flex-wrap: wrap;
@@ -201,5 +256,9 @@ body {
 
   .post-date {
     padding-top: 0;
+  }
+
+  .article-header h1 {
+    font-size: 1.85rem;
   }
 }
