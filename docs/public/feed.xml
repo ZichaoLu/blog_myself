@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>Lucas的博客</title>
+    <link>https://zichaolu.github.io/blog_myself/</link>
+    <description>科研、投资理财、生活与就业记录</description>
+    <language>zh-CN</language>
+    <item>
+      <title>如何建立一份可复现的实验记录</title>
+      <link>https://zichaolu.github.io/blog_myself/research/reproducible-experiment</link>
+      <guid>https://zichaolu.github.io/blog_myself/research/reproducible-experiment</guid>
+      <pubDate>Tue, 11 Aug 2026 16:00:00 GMT</pubDate>
+      <description>用实验编号、环境快照、参数配置和结果证据建立可追溯的科研实验记录。</description>
+    </item>
+    <item>
+      <title>建立个人投资检查清单</title>
+      <link>https://zichaolu.github.io/blog_myself/finance/investment-checklist</link>
+      <guid>https://zichaolu.github.io/blog_myself/finance/investment-checklist</guid>
+      <pubDate>Sun, 09 Aug 2026 16:00:00 GMT</pubDate>
+      <description>在做出投资决策前，用目标、风险、估值和退出条件检查自己的判断是否完整。</description>
+    </item>
+    <item>
+      <title>一套可持续的每周回顾</title>
+      <link>https://zichaolu.github.io/blog_myself/life/weekly-review</link>
+      <guid>https://zichaolu.github.io/blog_myself/life/weekly-review</guid>
+      <pubDate>Fri, 07 Aug 2026 16:00:00 GMT</pubDate>
+      <description>用事实、精力和下一步三个视角完成简短周复盘，避免把回顾变成另一项沉重任务。</description>
+    </item>
+    <item>
+      <title>技术面试复盘方法</title>
+      <link>https://zichaolu.github.io/blog_myself/career/interview-retrospective</link>
+      <guid>https://zichaolu.github.io/blog_myself/career/interview-retrospective</guid>
+      <pubDate>Tue, 04 Aug 2026 16:00:00 GMT</pubDate>
+      <description>从问题分类、回答证据和行动项三个层面复盘技术面试，让一次经历转化为下一次改进。</description>
+    </item>
+  </channel>
+</rss>
