@@ -38,7 +38,7 @@ export default defineConfig({
       { text: '科研', link: '/research/' },
       { text: '投资理财', link: '/finance/' },
       { text: '生活', link: '/life/' },
-      { text: '个人就业', link: '/career/' },
+      { text: '就业', link: '/career/' },
       {
         text: '浏览',
         items: [
@@ -78,7 +78,7 @@ export default defineConfig({
       ],
       '/career/': [
         {
-          text: '个人就业',
+          text: '就业',
           items: [
             { text: '全部就业笔记', link: '/career/' },
             { text: '技术面试复盘方法', link: '/career/interview-retrospective' }
