@@ -31,7 +31,10 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   <main class="home-page">
     <section class="home-intro" aria-labelledby="home-title">
       <div class="home-copy">
-        <p class="eyebrow">Personal Notes · Since 2026</p>
+        <div class="intro-kicker">
+          <p class="eyebrow">Personal Notes · Since 2026</p>
+          <span aria-hidden="true">No. 001</span>
+        </div>
         <h1 id="home-title">{{ site.title }}</h1>
         <p class="home-tagline">{{ site.tagline }}</p>
         <p class="home-description">
@@ -153,11 +156,25 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
           </span>
           <span class="section-footer">
             <span>{{ postCounts[section.key] }} 篇记录</span>
-            <span aria-hidden="true">→</span>
+            <span class="section-arrow" aria-hidden="true">→</span>
           </span>
         </a>
       </div>
     </section>
+
+    <footer class="home-footer">
+      <div>
+        <p class="footer-name">{{ site.title }}</p>
+        <p>记录问题，保留证据，持续修正。</p>
+      </div>
+      <nav aria-label="页尾导航">
+        <a :href="withBase('/about')">关于</a>
+        <a :href="withBase('/archives/')">归档</a>
+        <a :href="withBase('/feed.xml')">RSS</a>
+        <a :href="site.github" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      </nav>
+      <p class="footer-copyright">© 2026 {{ site.author }}</p>
+    </footer>
   </main>
 </template>
 
@@ -179,6 +196,33 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 
 .home-copy {
   min-width: 0;
+}
+
+.intro-kicker {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  max-width: 680px;
+  margin-bottom: 10px;
+}
+
+.intro-kicker::after {
+  flex: 1;
+  height: 1px;
+  background: var(--vp-c-divider);
+  content: "";
+}
+
+.intro-kicker .eyebrow {
+  margin: 0;
+}
+
+.intro-kicker > span {
+  order: 3;
+  color: var(--vp-c-text-3);
+  font-family: Georgia, serif;
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .home-copy h1 {
@@ -228,23 +272,46 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
+  box-shadow: 0 5px 16px rgba(32, 38, 38, 0.12);
+  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
 }
 
 .primary-link:hover {
   border-color: var(--vp-c-brand-2);
   color: white;
   background: var(--vp-c-brand-2);
+  box-shadow: 0 7px 20px rgba(32, 38, 38, 0.17);
 }
 
 .text-link {
+  position: relative;
   color: var(--vp-c-text-2);
   font-size: 0.88rem;
   font-weight: 600;
   text-decoration: none;
 }
 
+.text-link::after {
+  position: absolute;
+  right: 0;
+  bottom: -4px;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  opacity: 0.3;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 160ms ease;
+}
+
 .text-link:hover {
   color: var(--vp-c-brand-1);
+}
+
+.text-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 .home-stats {
@@ -281,9 +348,20 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 }
 
 .home-profile {
+  position: relative;
   padding: 26px 0;
   border-top: 1px solid var(--vp-c-divider);
   border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.home-profile::before {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 44px;
+  height: 2px;
+  background: var(--vp-c-brand-1);
+  content: "";
 }
 
 .profile-main {
@@ -301,6 +379,7 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   border-radius: 6px;
   object-fit: cover;
   filter: saturate(0.78) contrast(0.96);
+  box-shadow: 8px 8px 0 var(--vp-c-bg-soft);
 }
 
 .profile-label {
@@ -369,9 +448,20 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 }
 
 .featured-note {
+  position: relative;
   min-width: 0;
   padding: 34px 48px 34px 0;
   border-right: 1px solid var(--vp-c-divider);
+}
+
+.featured-note::before {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 72px;
+  height: 2px;
+  background: var(--vp-c-brand-1);
+  content: "";
 }
 
 .post-kicker,
@@ -436,8 +526,18 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   text-decoration: none;
 }
 
+.read-note-link span,
+.section-arrow {
+  transition: transform 160ms ease;
+}
+
 .read-note-link:hover {
   color: var(--vp-c-brand-1);
+}
+
+.read-note-link:hover span,
+.section-item:hover .section-arrow {
+  transform: translateX(4px);
 }
 
 .recent-list {
@@ -446,8 +546,25 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 }
 
 .recent-note {
+  position: relative;
   padding: 22px 0;
   border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.recent-note::before {
+  position: absolute;
+  top: 22px;
+  bottom: 22px;
+  left: -32px;
+  width: 2px;
+  background: var(--vp-c-brand-1);
+  content: "";
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.recent-note:hover::before {
+  opacity: 1;
 }
 
 .recent-note:last-child {
@@ -519,7 +636,7 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   border-bottom: 1px solid var(--vp-c-divider);
   color: var(--vp-c-text-1);
   text-decoration: none;
-  transition: background-color 160ms ease;
+  transition: background-color 160ms ease, box-shadow 160ms ease;
 }
 
 .section-finance {
@@ -536,6 +653,7 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 
 .section-item:hover {
   background: var(--vp-c-bg-soft);
+  box-shadow: inset 0 -3px 0 var(--section-accent);
 }
 
 .section-index {
@@ -581,6 +699,50 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   font-size: 0.74rem;
 }
 
+.home-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 48px;
+  align-items: end;
+  margin-top: 76px;
+  padding: 30px 0 8px;
+  border-top: 1px solid var(--vp-c-divider);
+  color: var(--vp-c-text-3);
+  font-size: 0.76rem;
+}
+
+.home-footer p {
+  margin: 0;
+}
+
+.home-footer .footer-name {
+  margin-bottom: 7px;
+  color: var(--vp-c-text-1);
+  font-family: Georgia, "Noto Serif SC", "Songti SC", serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.home-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.home-footer a {
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+}
+
+.home-footer a:hover {
+  color: var(--vp-c-brand-1);
+}
+
+.footer-copyright {
+  white-space: nowrap;
+  font-family: Georgia, serif;
+}
+
 @media (max-width: 960px) {
   .home-intro {
     grid-template-columns: minmax(0, 1fr) 300px;
@@ -610,6 +772,14 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 
   .section-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-footer {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .footer-copyright {
+    grid-column: 1 / -1;
   }
 }
 
@@ -666,6 +836,10 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
     font-size: 1.6rem;
   }
 
+  .recent-note::before {
+    left: -1px;
+  }
+
   .recent-list {
     padding-left: 0;
   }
@@ -676,6 +850,16 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 
   .section-item {
     min-height: 205px;
+  }
+
+  .home-footer {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    margin-top: 56px;
+  }
+
+  .footer-copyright {
+    grid-column: auto;
   }
 }
 
@@ -703,6 +887,25 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   .author-avatar {
     width: 96px;
     height: 96px;
+  }
+
+  .intro-kicker {
+    gap: 14px;
+  }
+
+  .intro-kicker > span {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary-link,
+  .text-link::after,
+  .read-note-link span,
+  .section-arrow,
+  .recent-note::before,
+  .section-item {
+    transition: none;
   }
 }
 </style>
