@@ -19,7 +19,13 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
     <header class="category-header">
       <div class="category-title-block">
         <p class="eyebrow">{{ details.englishName }} · Notes</p>
-        <h1>{{ details.name }}</h1>
+        <h1 :aria-label="details.name">
+          <template v-if="details.key === 'finance'">
+            <span>投资</span>
+            <span>理财</span>
+          </template>
+          <template v-else>{{ details.name }}</template>
+        </h1>
       </div>
       <p class="category-intro">{{ details.intro }}</p>
       <dl class="category-stats" aria-label="栏目概况">
@@ -102,6 +108,10 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   line-height: 1.2;
 }
 
+.category-finance .category-title-block h1 span {
+  display: block;
+}
+
 .category-intro {
   align-self: end;
   margin: 0;
@@ -174,6 +184,10 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 
   .category-title-block h1 {
     font-size: 2.35rem;
+  }
+
+  .category-finance .category-title-block h1 span {
+    display: inline;
   }
 
   .category-stats {
