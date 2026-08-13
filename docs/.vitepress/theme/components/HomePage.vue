@@ -91,7 +91,10 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
           <p class="eyebrow">Recent Notes</p>
           <h2 id="latest-title">最近更新</h2>
         </div>
-        <a class="text-link" :href="withBase('/archives/')">查看归档 <span aria-hidden="true">→</span></a>
+        <div class="section-heading-side">
+          <span class="section-sequence" aria-hidden="true">01</span>
+          <a class="text-link" :href="withBase('/archives/')">查看归档 <span aria-hidden="true">→</span></a>
+        </div>
       </div>
 
       <div class="latest-layout">
@@ -138,7 +141,10 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
           <p class="eyebrow">Sections</p>
           <h2 id="sections-title">四个主题，持续记录</h2>
         </div>
-        <p class="section-note">从正在解决的问题出发，按主题沉淀。</p>
+        <div class="section-heading-side">
+          <span class="section-sequence" aria-hidden="true">02</span>
+          <p class="section-note">从正在解决的问题出发，按主题沉淀。</p>
+        </div>
       </div>
       <div class="section-grid">
         <a
@@ -440,6 +446,26 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   justify-content: space-between;
 }
 
+.section-heading-side {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
+.section-sequence {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 50%;
+  color: var(--vp-c-text-3);
+  font-family: Georgia, serif;
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+}
+
 .latest-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(340px, 0.8fr);
@@ -664,7 +690,7 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 }
 
 .section-item:hover {
-  background: var(--vp-c-bg-soft);
+  background: color-mix(in srgb, var(--section-accent) 5%, var(--vp-c-bg));
   box-shadow: inset 0 -3px 0 var(--section-accent);
 }
 
@@ -883,6 +909,15 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   .section-note {
     display: none;
   }
+
+  .section-heading-side {
+    gap: 14px;
+  }
+
+  .section-sequence {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 @media (max-width: 420px) {
@@ -918,6 +953,30 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   .recent-note::before,
   .section-item {
     transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-intro > * {
+    animation: home-reveal 520ms ease both;
+  }
+
+  .home-profile {
+    animation-delay: 90ms;
+  }
+
+  .home-section {
+    animation: home-reveal 560ms ease 120ms both;
+  }
+
+  @keyframes home-reveal {
+    from {
+      transform: translateY(10px);
+    }
+
+    to {
+      transform: translateY(0);
+    }
   }
 }
 </style>
