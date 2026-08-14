@@ -14,11 +14,50 @@ import ReadingProgress from './components/ReadingProgress.vue'
 import RelatedPosts from './components/RelatedPosts.vue'
 import './custom.css'
 
+function setupImageZoom() {
+  const onClick = (event: MouseEvent) => {
+    const target = event.target as HTMLElement
+    if (target.tagName !== 'IMG') return
+    if (target.classList.contains('author-avatar')) return
+    if (target.closest('.featured-cover') || target.closest('.related-cover')) return
+    if (!target.closest('.vp-doc')) return
+
+    const image = target as HTMLImageElement
+    const src = image.currentSrc || image.src
+    if (!src) return
+
+    const overlay = document.createElement('div')
+    overlay.className = 'lightbox-overlay'
+    const img = document.createElement('img')
+    img.src = src
+    img.alt = image.alt || ''
+    overlay.appendChild(img)
+    document.body.appendChild(overlay)
+    document.body.style.overflow = 'hidden'
+
+    function close() {
+      overlay.remove()
+      document.body.style.overflow = ''
+      document.removeEventListener('keydown', onKeydown)
+    }
+
+    function onKeydown(e: KeyboardEvent) {
+      if (e.key === 'Escape') close()
+    }
+
+    overlay.addEventListener('click', close)
+    document.addEventListener('keydown', onKeydown)
+  }
+
+  document.addEventListener('click', onClick)
+  return () => document.removeEventListener('click', onClick)
+}
+
 export default {
   extends: DefaultTheme,
   Layout() {
     const { isDark } = useData()
-    let cleanup: (() => void) | undefined
+    const cleanups: Array<() => void> = []
 
     onMounted(() => {
       const onScroll = () => {
@@ -27,10 +66,11 @@ export default {
 
       window.addEventListener('scroll', onScroll, { passive: true })
       onScroll()
-      cleanup = () => window.removeEventListener('scroll', onScroll)
+      cleanups.push(() => window.removeEventListener('scroll', onScroll))
+      cleanups.push(setupImageZoom())
     })
 
-    onBeforeUnmount(() => cleanup?.())
+    onBeforeUnmount(() => cleanups.forEach((fn) => fn()))
 
     watch(isDark, () => {
       document.documentElement.classList.add('theme-switching')

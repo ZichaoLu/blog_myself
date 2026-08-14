@@ -271,10 +271,22 @@ body {
   box-shadow: var(--vp-shadow-md);
 }
 
-.vp-doc img:not(.author-avatar) {
+/* 代码块语言标签：清晰显示 */
+.vp-doc div[class*='language-'] > span.lang {
+  top: 10px;
+  right: 60px;
+  color: var(--vp-c-text-3);
+  font-size: 0.7rem;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, monospace;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+}
+
+.vp-doc img:not(.author-avatar):not(.related-cover) {
   border: 1px solid var(--vp-c-divider);
   border-radius: var(--vp-radius-sm);
   box-shadow: var(--vp-shadow-sm);
+  cursor: zoom-in;
 }
 
 .vp-doc table {
@@ -733,4 +745,36 @@ html.is-scrolled .VPNav {
 /* 任务列表复选框 */
 .vp-doc .task-list-item input[type='checkbox'] {
   accent-color: var(--vp-c-brand-1);
+}
+
+/* 图片点击放大 */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6vh 6vw;
+  background: rgba(10, 12, 12, 0.84);
+  backdrop-filter: blur(5px);
+  cursor: zoom-out;
+  animation: lightbox-fade 180ms ease;
+}
+
+.lightbox-overlay img {
+  max-width: 88vw;
+  max-height: 88vh;
+  border-radius: var(--vp-radius-sm);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55);
+}
+
+@keyframes lightbox-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
