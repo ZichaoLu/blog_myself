@@ -8,6 +8,7 @@ tags:
   - investment
   - risk
   - checklist
+cover: /images/cover-finance.svg
 draft: false
 comments: true
 outline: [2, 3]

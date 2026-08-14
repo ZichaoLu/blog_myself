@@ -8,6 +8,7 @@ tags:
   - review
   - habits
   - planning
+cover: /images/cover-life.svg
 draft: false
 comments: true
 outline: [2, 3]

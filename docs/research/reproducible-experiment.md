@@ -8,6 +8,7 @@ tags:
   - reproducibility
   - experiment
   - research
+cover: /images/cover-research.svg
 draft: false
 comments: true
 outline: [2, 3]

@@ -8,6 +8,7 @@ tags:
   - interview
   - career
   - review
+cover: /images/cover-career.svg
 draft: false
 comments: true
 outline: [2, 3]
