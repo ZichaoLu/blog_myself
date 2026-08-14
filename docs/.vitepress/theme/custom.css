@@ -526,14 +526,21 @@ body {
 
 .pager-link {
   border-color: var(--vp-c-divider) !important;
-  border-radius: 5px !important;
+  border-radius: var(--vp-radius-sm) !important;
   background: var(--vp-c-bg-soft);
-  transition: border-color 140ms ease, background-color 140ms ease;
+  transition: border-color 180ms var(--vp-ease-out), background-color 180ms var(--vp-ease-out),
+    box-shadow 180ms var(--vp-ease-out), transform 180ms var(--vp-ease-out);
 }
 
 .pager-link:hover {
   border-color: var(--vp-c-brand-1) !important;
   background: var(--vp-c-brand-soft);
+  box-shadow: var(--vp-shadow-sm);
+  transform: translateY(-1px);
+}
+
+.pager-link .desc {
+  color: var(--vp-c-text-3);
 }
 
 .article-details .tag-list {
@@ -664,4 +671,66 @@ body {
 * {
   scrollbar-width: thin;
   scrollbar-color: color-mix(in srgb, var(--vp-c-text-3) 48%, transparent) transparent;
+}
+
+/* 主题切换：平滑过渡 */
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition: background-color 280ms ease, border-color 280ms ease, color 280ms ease,
+    fill 280ms ease, box-shadow 280ms ease !important;
+}
+
+/* 导航栏滚动阴影 */
+html.is-scrolled .VPNav {
+  box-shadow: 0 6px 20px -12px color-mix(in srgb, var(--vp-c-text-1) 30%, transparent);
+}
+
+/* 列表标记：品牌色 */
+.vp-doc ul > li::marker,
+.vp-doc ol > li::marker {
+  color: var(--vp-c-brand-1);
+}
+
+.vp-doc ol > li::marker {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 分割线 */
+.vp-doc hr {
+  margin: 44px 0;
+  border: 0;
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+/* 高亮标记 */
+.vp-doc mark {
+  margin: 0 1px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  color: inherit;
+  background: color-mix(in srgb, var(--vp-c-brand-1) 16%, transparent);
+}
+
+/* 目录激活指示条 */
+.VPDocAsideOutline .outline-link {
+  position: relative;
+}
+
+.VPDocAsideOutline .outline-link.active::before {
+  position: absolute;
+  top: 50%;
+  left: -12px;
+  width: 2px;
+  height: 15px;
+  border-radius: 1px;
+  background: var(--vp-c-brand-1);
+  content: "";
+  transform: translateY(-50%);
+}
+
+/* 任务列表复选框 */
+.vp-doc .task-list-item input[type='checkbox'] {
+  accent-color: var(--vp-c-brand-1);
 }

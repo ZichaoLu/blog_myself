@@ -1,6 +1,7 @@
 import DefaultTheme from 'vitepress/theme'
 import type { Theme } from 'vitepress'
-import { h } from 'vue'
+import { h, onBeforeUnmount, onMounted, watch } from 'vue'
+import { useData } from 'vitepress'
 import HomePage from './components/HomePage.vue'
 import PostList from './components/PostList.vue'
 import TagsPage from './components/TagsPage.vue'
@@ -15,6 +16,28 @@ import './custom.css'
 export default {
   extends: DefaultTheme,
   Layout() {
+    const { isDark } = useData()
+    let cleanup: (() => void) | undefined
+
+    onMounted(() => {
+      const onScroll = () => {
+        document.documentElement.classList.toggle('is-scrolled', window.scrollY > 8)
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true })
+      onScroll()
+      cleanup = () => window.removeEventListener('scroll', onScroll)
+    })
+
+    onBeforeUnmount(() => cleanup?.())
+
+    watch(isDark, () => {
+      document.documentElement.classList.add('theme-switching')
+      window.setTimeout(() => {
+        document.documentElement.classList.remove('theme-switching')
+      }, 420)
+    })
+
     return h(DefaultTheme.Layout, null, {
       'doc-before': () => [h(ReadingProgress), h(ArticleHeader)],
       'doc-after': () => h(GiscusComment)
