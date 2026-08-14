@@ -51,6 +51,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
     <div class="related-grid">
       <article v-for="post in related" :key="post.url" class="related-card">
         <a class="related-link" :href="withBase(post.url)">
+          <img v-if="post.cover" class="related-cover" :src="withBase(post.cover)" :alt="`《${post.title}》封面图`" loading="lazy">
           <span class="related-category">{{ getCategory(post.category)?.name }}</span>
           <h3>{{ post.title }}</h3>
           <p>{{ post.description }}</p>
@@ -114,6 +115,15 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   background: color-mix(in srgb, var(--vp-c-bg-soft) 60%, transparent);
   box-shadow: var(--vp-shadow-sm);
   transform: translateY(-2px);
+}
+
+.related-cover {
+  display: block;
+  width: calc(100% + 36px);
+  margin: -18px -18px 12px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--vp-radius-sm) var(--vp-radius-sm) 0 0;
 }
 
 .related-category {

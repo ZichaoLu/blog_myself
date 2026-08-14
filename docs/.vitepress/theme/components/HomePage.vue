@@ -110,6 +110,13 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 
       <div class="latest-layout">
         <article class="featured-note">
+          <a v-if="latestPost.cover" class="featured-cover" :href="withBase(latestPost.url)" :aria-label="`阅读《${latestPost.title}》`">
+            <img
+              :src="withBase(latestPost.cover)"
+              :alt="`《${latestPost.title}》封面图`"
+              loading="lazy"
+            >
+          </a>
           <div class="post-kicker">
             <a :href="withBase(getCategory(latestPost.category)?.href || '/')">
               {{ getCategory(latestPost.category)?.name }}
@@ -521,6 +528,28 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   height: 2px;
   background: var(--vp-c-brand-1);
   content: "";
+}
+
+.featured-cover {
+  display: block;
+  margin-bottom: 22px;
+  overflow: hidden;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: var(--vp-radius-sm);
+  box-shadow: var(--vp-shadow-sm);
+  text-decoration: none;
+}
+
+.featured-cover img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  transition: transform 400ms var(--vp-ease-out);
+}
+
+.featured-cover:hover img {
+  transform: scale(1.03);
 }
 
 .post-kicker,

@@ -10,6 +10,7 @@ export interface Post {
   tags: string[]
   wordCount: number
   readingMinutes: number
+  cover: string
 }
 
 declare const data: Post[]
@@ -47,6 +48,7 @@ export default createContentLoader(['research/*.md', 'finance/*.md', 'life/*.md'
           date: String(frontmatter.date),
           category: frontmatter.category as CategoryKey,
           tags: Array.isArray(frontmatter.tags) ? frontmatter.tags.map(String) : [],
+          cover: String(frontmatter.cover || ''),
           ...stats
         }
       })

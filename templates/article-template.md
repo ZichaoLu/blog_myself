@@ -7,6 +7,7 @@ category: research
 tags:
   - research
   - notes
+# cover: /images/my-cover.jpg   # 可选：封面图路径，图片放在 docs/public/images/ 下
 draft: true
 comments: true
 outline: [2, 3]
