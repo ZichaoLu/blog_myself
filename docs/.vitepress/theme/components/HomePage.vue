@@ -18,6 +18,18 @@ const postCounts = computed(() => Object.fromEntries(
 const totalWords = computed(() => posts.reduce((sum, post) => sum + post.wordCount, 0))
 const totalMinutes = computed(() => posts.reduce((sum, post) => sum + post.readingMinutes, 0))
 
+const tagCloud = computed(() => {
+  const counts = new Map<string, number>()
+  for (const post of posts) {
+    for (const tag of post.tags) {
+      counts.set(tag, (counts.get(tag) || 0) + 1)
+    }
+  }
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .slice(0, 12)
+})
+
 const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   year: 'numeric',
   month: '2-digit',
@@ -184,6 +196,26 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
           </span>
         </a>
       </div>
+    </section>
+
+    <section v-if="tagCloud.length" class="home-section tags-section" aria-labelledby="tags-title">
+      <div class="section-heading section-heading-row">
+        <div>
+          <p class="eyebrow">Tags</p>
+          <h2 id="tags-title">标签速览</h2>
+        </div>
+        <div class="section-heading-side">
+          <span class="section-sequence" aria-hidden="true">03</span>
+          <a class="text-link" :href="withBase('/tags/')">全部标签 <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <ul class="tag-cloud" aria-label="全站标签">
+        <li v-for="[tag, count] in tagCloud" :key="tag">
+          <a class="tag-cloud-link" :href="withBase(`/tags/?tag=${encodeURIComponent(tag)}`)">
+            # {{ tag }} <span class="tag-cloud-count">{{ count }}</span>
+          </a>
+        </li>
+      </ul>
     </section>
 
     <footer class="home-footer">
@@ -694,6 +726,10 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 }
 
 .topics-section {
+  padding-bottom: 68px;
+}
+
+.tags-section {
   padding-bottom: 0;
 }
 
@@ -702,6 +738,57 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   margin: 0;
   color: var(--vp-c-text-3);
   font-size: 0.84rem;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0;
+  padding: 30px 0 8px;
+  list-style: none;
+}
+
+.tag-cloud-link {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 15px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 18px;
+  color: var(--vp-c-text-2);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: border-color 180ms var(--vp-ease-out), color 180ms var(--vp-ease-out),
+    background-color 180ms var(--vp-ease-out), transform 180ms var(--vp-ease-out);
+}
+
+.tag-cloud-link:hover {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+  transform: translateY(-1px);
+}
+
+.tag-cloud-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  color: var(--vp-c-text-3);
+  background: color-mix(in srgb, var(--vp-c-text-3) 14%, transparent);
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  transition: color 180ms var(--vp-ease-out), background-color 180ms var(--vp-ease-out);
+}
+
+.tag-cloud-link:hover .tag-cloud-count {
+  color: var(--vp-c-brand-1);
+  background: color-mix(in srgb, var(--vp-c-brand-1) 16%, transparent);
 }
 
 .section-grid {
@@ -894,6 +981,10 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 @media (max-width: 760px) {
   .home-page {
     padding: 38px 24px 72px;
+  }
+
+  .featured-cover img {
+    aspect-ratio: 16 / 9;
   }
 
   .home-intro {
