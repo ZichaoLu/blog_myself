@@ -32,6 +32,14 @@ import { categories } from '../../site'
   text-decoration: none;
 }
 
+.category-overview strong {
+  transition: color 160ms var(--vp-ease-out);
+}
+
+.category-overview li:hover strong {
+  color: var(--vp-c-brand-1);
+}
+
 .category-overview span {
   color: var(--vp-c-text-2);
 }

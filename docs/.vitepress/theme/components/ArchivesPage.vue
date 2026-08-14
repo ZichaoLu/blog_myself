@@ -64,6 +64,7 @@ const groups = computed(() => {
 .archive-year a {
   color: var(--vp-c-text-1);
   text-decoration: none;
+  transition: color 160ms var(--vp-ease-out);
 }
 
 .archive-year a:hover {

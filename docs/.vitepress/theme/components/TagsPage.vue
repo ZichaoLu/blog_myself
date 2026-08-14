@@ -70,6 +70,12 @@ const selectTag = (tag: string) => {
 
 button.tag-link {
   cursor: pointer;
+  transition: border-color 160ms var(--vp-ease-out), color 160ms var(--vp-ease-out),
+    background-color 160ms var(--vp-ease-out), transform 160ms var(--vp-ease-out);
+}
+
+button.tag-link:hover {
+  transform: translateY(-1px);
 }
 
 .filter-summary {

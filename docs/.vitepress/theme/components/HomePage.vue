@@ -192,12 +192,25 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 }
 
 .home-intro {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 350px;
   gap: 96px;
   align-items: center;
   min-height: 430px;
   padding: 24px 0 64px;
+}
+
+.home-intro::before {
+  position: absolute;
+  top: -70px;
+  right: -40px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--vp-c-brand-soft) 92%, transparent), transparent 68%);
+  content: "";
+  pointer-events: none;
 }
 
 .home-copy {
@@ -272,21 +285,23 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   min-height: 42px;
   padding: 0 18px;
   border: 1px solid var(--vp-c-brand-1);
-  border-radius: 4px;
+  border-radius: var(--vp-radius-sm);
   color: white;
   background: var(--vp-c-brand-1);
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
-  box-shadow: 0 5px 16px rgba(32, 38, 38, 0.12);
-  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+  box-shadow: var(--vp-shadow-sm);
+  transition: border-color 180ms var(--vp-ease-out), background-color 180ms var(--vp-ease-out),
+    box-shadow 180ms var(--vp-ease-out), transform 180ms var(--vp-ease-out);
 }
 
 .primary-link:hover {
   border-color: var(--vp-c-brand-2);
   color: white;
   background: var(--vp-c-brand-2);
-  box-shadow: 0 7px 20px rgba(32, 38, 38, 0.17);
+  box-shadow: var(--vp-shadow-md);
+  transform: translateY(-1px);
 }
 
 .text-link {
@@ -382,10 +397,16 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   width: 128px;
   height: 128px;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 6px;
+  border-radius: var(--vp-radius-sm);
   object-fit: cover;
   filter: saturate(0.78) contrast(0.96);
   box-shadow: 8px 8px 0 var(--vp-c-bg-soft);
+  transition: transform 260ms var(--vp-ease-out), box-shadow 260ms var(--vp-ease-out);
+}
+
+.home-profile:hover .author-avatar {
+  transform: translate(-2px, -2px);
+  box-shadow: 11px 11px 0 var(--vp-c-bg-soft);
 }
 
 .profile-label {
@@ -662,7 +683,7 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   border-bottom: 1px solid var(--vp-c-divider);
   color: var(--vp-c-text-1);
   text-decoration: none;
-  transition: background-color 160ms ease, box-shadow 160ms ease;
+  transition: background-color 200ms var(--vp-ease-out), box-shadow 200ms var(--vp-ease-out);
 }
 
 .section-finance {
@@ -690,8 +711,16 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 }
 
 .section-item:hover {
-  background: color-mix(in srgb, var(--section-accent) 5%, var(--vp-c-bg));
+  background: color-mix(in srgb, var(--section-accent) 7%, var(--vp-c-bg));
   box-shadow: inset 0 -3px 0 var(--section-accent);
+}
+
+.section-item:hover .section-body strong {
+  color: var(--section-accent);
+}
+
+.section-item:hover .section-footer {
+  color: var(--vp-c-text-2);
 }
 
 .section-index {
