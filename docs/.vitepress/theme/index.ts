@@ -11,6 +11,7 @@ import ArticleHeader from './components/ArticleHeader.vue'
 import CategoryPage from './components/CategoryPage.vue'
 import CategoryOverview from './components/CategoryOverview.vue'
 import ReadingProgress from './components/ReadingProgress.vue'
+import RelatedPosts from './components/RelatedPosts.vue'
 import './custom.css'
 
 export default {
@@ -40,7 +41,7 @@ export default {
 
     return h(DefaultTheme.Layout, null, {
       'doc-before': () => [h(ReadingProgress), h(ArticleHeader)],
-      'doc-after': () => h(GiscusComment)
+      'doc-after': () => [h(RelatedPosts), h(GiscusComment)]
     })
   },
   enhanceApp({ app }) {

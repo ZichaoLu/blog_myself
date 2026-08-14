@@ -24,6 +24,11 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   month: 'long',
   day: 'numeric'
 }).format(new Date(`${date}T00:00:00+08:00`))
+
+const updatedDate = computed(() => {
+  const updated = frontmatter.value.updated
+  return typeof updated === 'string' && updated && updated !== post.value?.date ? updated : ''
+})
 </script>
 
 <template>
@@ -41,6 +46,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
     <div class="article-details">
       <span>约 {{ post.readingMinutes }} 分钟阅读</span>
       <span>{{ post.wordCount.toLocaleString('zh-CN') }} 字</span>
+      <span v-if="updatedDate">更新于 {{ formatDate(updatedDate) }}</span>
       <ul class="tag-list" aria-label="文章标签">
         <li v-for="tag in post.tags" :key="tag">
           <a class="tag-link" :href="withBase(`/tags/?tag=${encodeURIComponent(tag)}`)"># {{ tag }}</a>

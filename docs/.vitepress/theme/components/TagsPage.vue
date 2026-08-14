@@ -3,7 +3,22 @@ import { computed, onMounted, ref } from 'vue'
 import { withBase } from 'vitepress'
 import { data as posts } from '../../../posts.data'
 
-const tags = [...new Set(posts.flatMap((post) => post.tags))].sort((a, b) => a.localeCompare(b))
+const tagCounts = computed(() => {
+  const counts = new Map<string, number>()
+  for (const post of posts) {
+    for (const tag of post.tags) {
+      counts.set(tag, (counts.get(tag) || 0) + 1)
+    }
+  }
+  return counts
+})
+
+const tags = computed(() =>
+  [...tagCounts.value.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([tag]) => tag)
+)
+
 const selectedTag = ref('')
 
 onMounted(() => {
@@ -35,7 +50,7 @@ const selectTag = (tag: string) => {
       :class="{ active: selectedTag === tag }"
       @click="selectTag(tag)"
     >
-      # {{ tag }}
+      # {{ tag }} <span class="tag-count">{{ tagCounts.get(tag) }}</span>
     </button>
   </div>
 
@@ -76,6 +91,28 @@ button.tag-link {
 
 button.tag-link:hover {
   transform: translateY(-1px);
+}
+
+.tag-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  margin-left: 2px;
+  padding: 0 4px;
+  border-radius: 8px;
+  color: var(--vp-c-text-3);
+  background: color-mix(in srgb, var(--vp-c-text-3) 14%, transparent);
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+  transition: color 160ms var(--vp-ease-out), background-color 160ms var(--vp-ease-out);
+}
+
+.tag-link.active .tag-count,
+.tag-link:hover .tag-count {
+  color: var(--vp-c-brand-1);
+  background: color-mix(in srgb, var(--vp-c-brand-1) 16%, transparent);
 }
 
 .filter-summary {

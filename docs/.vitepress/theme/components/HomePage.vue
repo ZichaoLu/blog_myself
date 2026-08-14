@@ -15,6 +15,9 @@ const postCounts = computed(() => Object.fromEntries(
   ])
 ) as Record<CategoryKey, number>)
 
+const totalWords = computed(() => posts.reduce((sum, post) => sum + post.wordCount, 0))
+const totalMinutes = computed(() => posts.reduce((sum, post) => sum + post.readingMinutes, 0))
+
 const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
   year: 'numeric',
   month: '2-digit',
@@ -58,6 +61,14 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
           <div>
             <dt>最近更新</dt>
             <dd>{{ latestPost ? formatShortDate(latestPost.date) : '—' }}</dd>
+          </div>
+          <div>
+            <dt>总字数</dt>
+            <dd>{{ totalWords.toLocaleString('zh-CN') }}</dd>
+          </div>
+          <div>
+            <dt>累计阅读</dt>
+            <dd>约 {{ totalMinutes }} 分钟</dd>
           </div>
         </dl>
       </div>
@@ -337,18 +348,19 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 
 .home-stats {
   display: flex;
-  gap: 0;
+  flex-wrap: wrap;
+  row-gap: 18px;
   margin: 36px 0 0;
 }
 
 .home-stats div {
-  min-width: 108px;
-  padding-right: 28px;
+  min-width: 96px;
+  padding-right: 20px;
   border-right: 1px solid var(--vp-c-divider);
 }
 
 .home-stats div + div {
-  padding-left: 28px;
+  padding-left: 20px;
 }
 
 .home-stats div:last-child {
@@ -868,7 +880,7 @@ const formatShortDate = (date: string) => new Intl.DateTimeFormat('zh-CN', {
 
   .home-stats div {
     min-width: 0;
-    flex: 1;
+    flex: 1 1 40%;
     padding-right: 16px;
   }
 
